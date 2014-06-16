@@ -62,7 +62,7 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
 
     $scope.seleccion = function(task){
         msgAlert("", false, false);
-        todoService.seleccion(task._id)
+        todoService.seleccion(task.id)
         .success(function () {
                 $scope.getAll();
             })
@@ -92,6 +92,9 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
             $scope.vacio = false;
         }
     }
+
+
+
 
     //call this method at first!
     $scope.getAll();
