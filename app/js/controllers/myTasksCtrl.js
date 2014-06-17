@@ -50,8 +50,10 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
             return;
         }
         todoService.create(task)
-            .success(function (current, status, headers, config) {
-                $scope.getAll();
+            .success(function (task,current, status, headers, config) {
+                debugger;
+                $scope.tareas.push(task);
+//                $scope.getAll();
                 $scope.textoNuevaTarea = "";
                 msgAlert("Tarea agreagada", true, true) ;
             })
@@ -61,10 +63,15 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
     };
 
     $scope.seleccion = function(task){
+
         msgAlert("", false, false);
         todoService.seleccion(task.id)
-        .success(function () {
-                $scope.getAll();
+        .success(function (task) {
+                var selTask = _.find($scope.tareas, function(itemTask){return itemTask.id == task.id});
+                selTask.hecho = task.hecho;
+                numEliminar();
+//                debugger;
+//                task.hecho = hecho;
             })
                 .error(function(current, status, headers, config) {
                     alert(current);
@@ -77,9 +84,9 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
             return;
         }
         todoService.delSelectedTasks()
-            .success(function(){
+            .success(function(Tasks){
                 msgAlert("Tarea eliminada", true, true);
-                $scope.getAll();
+                $scope.tareas = Tasks;
             })
             .error(function(current){
                 alert(current)

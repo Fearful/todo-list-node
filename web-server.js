@@ -56,15 +56,16 @@ app.put('/newTask', function(req, res) {
         hecho : req.body.hecho
     };
     myTasks.push(newTask);
-    res.json(true);
+    res.json(newTask);
 });
 
 // delete a particular task
 app.delete('/delete', function(req, res) {
 
+
     var selTasks = _.where(myTasks, {hecho: false});
     myTasks = selTasks;
-    res.json(true);
+    res.json(selTasks);
 
 
 //    var oldTasks = myTasks;
@@ -95,7 +96,7 @@ app.post('/selectedTask/:id', function(req, res) {
     selTask = _.find(myTasks, function(itemTask){return itemTask.id == req.params.id});
     var taskIndex = myTasks.indexOf(selTask);
     myTasks[taskIndex].hecho = !myTasks[taskIndex].hecho;
-    res.json(true);
+    res.json(myTasks[taskIndex]);
 
 });
 
@@ -105,7 +106,7 @@ app.delete('/delTask/:id', function(req, res){
     selTask = _.find(myTasks, function(itemTask){return itemTask.id == req.params.id});
     var taskIndex = myTasks.indexOf(selTask);
     myTasks.splice(taskIndex, 1);
-    res.json(true);
+    res.json(req.params.id);
 });
 
 

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('myIndTasksCtrl', function($scope, todoService, $location) {
+app.controller('myIndTasksCtrl', function($scope, todoService) {
     //get all elements
 
     $scope.textBtEdit = "Edit";
@@ -22,8 +22,10 @@ app.controller('myIndTasksCtrl', function($scope, todoService, $location) {
     $scope.eliminarTask = function(task){
         $scope.current;
         todoService.borrarTarea(task.id)
-            .success(function () {
-                $scope.getAll();
+            .success(function (id) {
+//               var selTask = _.find($scope.tareas, function(itemTask){return itemTask.id == id});
+//                var taskIndex = ;
+                $scope.tareas.splice($scope.tareas.indexOf(task), 1);
             })
             .error(function(current) {
                 alert(current);
