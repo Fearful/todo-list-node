@@ -19,20 +19,20 @@ app.controller('myIndTasksCtrl', function($scope, todoService) {
     }
 
 
-    $scope.eliminarTask = function(task){
+    $scope.delTask = function(task){
         $scope.current;
-        todoService.borrarTarea(task.id)
+        todoService.delTask(task.id)
             .success(function (id) {
 //               var selTask = _.find($scope.tareas, function(itemTask){return itemTask.id == id});
 //                var taskIndex = ;
-                $scope.tareas.splice($scope.tareas.indexOf(task), 1);
+                $scope.tasks.splice($scope.tasks.indexOf(task), 1);
             })
             .error(function(current) {
                 alert(current);
             });
     }
 
-    $scope.editarTask= function(task){
+    $scope.editTask= function(task){
         if(btEdit == true){
             $scope.state = false;
             $scope.textBtEdit = "Save";
@@ -47,9 +47,9 @@ app.controller('myIndTasksCtrl', function($scope, todoService) {
     var confirmEditTask = function(task){
         $scope.current;
         debugger;
-        task.texto = $scope.textoNuevo;
+        task.texto = $scope.newText;
         debugger;
-        todoService.editarTarea(task)
+        todoService.editTask(task)
             .success(function () {
                 $scope.getAll();
                 $scope.textBtEdit = "Edit";
@@ -61,12 +61,12 @@ app.controller('myIndTasksCtrl', function($scope, todoService) {
             });
     }
 
-    $scope.restantes = function () {
-        var cuenta = 0;
-        angular.forEach($scope.tareas, function (tarea) {
-            cuenta += tarea.hecho ? 0 : 1;
+    $scope.remaining = function () {
+        var count = 0;
+        angular.forEach($scope.tasks, function (task) {
+            count += task.done ? 0 : 1;
         });
-        return cuenta;
+        return count;
     }
     //call this method at first!
     $scope.getAll();

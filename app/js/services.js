@@ -15,7 +15,7 @@ app.service('todoService', function ($http, $location) {
         return $http.put('/newTask', newTask);
     };
 
-    this.seleccion = function(selectedTaskID){
+    this.selection = function(selectedTaskID){
         return $http.post('/selectedTask/' + selectedTaskID);
     };
 
@@ -23,11 +23,11 @@ app.service('todoService', function ($http, $location) {
         return $http.delete('/delete');
     };
 
-    this.borrarTarea = function(myTaskID){
+    this.deleteTaks = function(myTaskID){
         return $http.delete('/delTask/'+ myTaskID);
     };
 
-    this.editarTarea = function(myTask){
+    this.editTask = function(myTask){
         return $http.post('/updateTask', myTask);
     }
 }); 
