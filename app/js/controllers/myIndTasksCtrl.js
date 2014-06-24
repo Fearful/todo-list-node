@@ -11,17 +11,17 @@ app.controller('myIndTasksCtrl', function($scope, todoService) {
     $scope.getAll = function() {
         todoService.getAll()
             .success(function (data, status, headers, config) {
-                $scope.tareas = data;
+                $scope.tasks = data;
+                $scope.count = data.length;
             })
             .error(function(data, status, headers, config) {
                 alert(current);
             });
     }
 
-
     $scope.delTask = function(task){
         $scope.current;
-        todoService.delTask(task.id)
+        todoService.deleteTask(task.id)
             .success(function (id) {
 //               var selTask = _.find($scope.tareas, function(itemTask){return itemTask.id == id});
 //                var taskIndex = ;

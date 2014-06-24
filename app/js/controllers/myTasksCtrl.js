@@ -3,7 +3,7 @@
 app.controller('myTasksCtrl', function($scope, todoService, $location) {
 
     var msgAlert = function(msg, visibilidad, state){
-        $scope.msgAlerta = msg;
+        $scope.msgAlert = msg;
         $scope.msgVisible = visibilidad;
         $scope.styleAdded = state;
     }
@@ -14,6 +14,7 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
         todoService.getAll()
             .success(function (data, status, headers, config) {
                 $scope.tasks = data;
+                $scope.count = data.length;
                 numDone();
             })
             .error(function(data, status, headers, config) {

@@ -5,18 +5,18 @@ var _ = require("underscore");
 
 var myTasks = [{
     id: 1,
-    texto: 'Nico',
-    hecho: true
+    text: 'Nico',
+    done: true
 },
     {
         id: 2,
-        texto: 'Fede',
-        hecho: false
+        text: 'Fede',
+        done: false
     },
     {
         id:3,
-        texto: 'hola que tal...',
-        hecho: true
+        text: 'hola que tal...',
+        done: true
     }
 ];
 
@@ -52,8 +52,8 @@ app.get('/api/myTasks', function(req, res){
 app.put('/newTask', function(req, res) {
     var newTask = {
         id : ++cont,
-        texto : req.body.texto,
-        hecho : req.body.hecho
+        text : req.body.text,
+        done : req.body.done
     };
     myTasks.push(newTask);
     res.json(newTask);
@@ -63,25 +63,9 @@ app.put('/newTask', function(req, res) {
 app.delete('/delete', function(req, res) {
 
 
-    var selTasks = _.where(myTasks, {hecho: false});
+    var selTasks = _.where(myTasks, {done: false});
     myTasks = selTasks;
     res.json(selTasks);
-
-
-//    var oldTasks = myTasks;
-//            myTasks = [];
-//    angular.forEach(oldTasks, function (task) {
-//        if (!task.hecho) myTasks.push(task);
-//    });
-
-//
-//    _.each(myTasks, function(tarea){
-//        if(tarea.hecho) {
-//            var taskIndex = myTasks.indexOf(tarea);
-//            myTasks.splice(taskIndex, 1);
-//            res.json(true);
-//        }
-//    })
 });
 
 // Select a particular task
@@ -95,7 +79,7 @@ app.delete('/delete', function(req, res) {
 app.post('/selectedTask/:id', function(req, res) {
     selTask = _.find(myTasks, function(itemTask){return itemTask.id == req.params.id});
     var taskIndex = myTasks.indexOf(selTask);
-    myTasks[taskIndex].hecho = !myTasks[taskIndex].hecho;
+    myTasks[taskIndex].done = !myTasks[taskIndex].done;
     res.json(myTasks[taskIndex]);
 
 });
@@ -116,8 +100,8 @@ app.delete('/delTask/:id', function(req, res){
 // res.json(true);   return que fue correcto?
 // _ que sentido tiene?
 app.post('/editPost', function(req, res) {
-    selTask= _.find(myTasks, function(itemTask){return itemTask.id == req.params.id});
-    var postIndex = myTasks.indexOf(selPost);
+    selTask = _.find(myTasks, function(itemTask){return itemTask.id == req.params.id});
+    var postIndex = myTasks.indexOf(selTask);
     myTasks[postIndex] = req.body;
     res.json(true);
 });

@@ -23,7 +23,7 @@ app.service('todoService', function ($http, $location) {
         return $http.delete('/delete');
     };
 
-    this.deleteTaks = function(myTaskID){
+    this.deleteTask = function(myTaskID){
         return $http.delete('/delTask/'+ myTaskID);
     };
 
