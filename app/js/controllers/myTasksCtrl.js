@@ -32,8 +32,8 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
 
     var numDone = function () {
         $scope.countDelete = 0;
-        angular.forEach($scope.tasks, function (t) {
-            $scope.countDelete += t.done ? 1 : 0;
+        angular.forEach($scope.tasks, function (task) {
+            $scope.countDelete += task.done ? 1 : 0;
         });
     };
 
@@ -75,7 +75,7 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
                 });
     }
 
-    $scope.delSelectedTasksC = function(){
+    $scope.delSelectedTasks = function(){
         if($scope.countDelete == 0){
             msgAlert("You must select the task to delete", true, false);
             return;
