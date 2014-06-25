@@ -49,7 +49,7 @@ app.get('/api/myTasks', function(req, res){
 // create a new Task.   Preguntar id, texto hecho.   que hace res.json?
 //NO SE PUEDE PASAR LA TAREA ENTERA Y AGREGARLA EN LUGAR DE DESARMAR EL OBJETO?
 
-app.put('/newTask', function(req, res) {
+app.post('/newTask', function(req, res) {
     var newTask = {
         id : ++cont,
         text : req.body.text,
@@ -61,8 +61,6 @@ app.put('/newTask', function(req, res) {
 
 // delete a particular task
 app.delete('/delete', function(req, res) {
-
-
     var selTasks = _.where(myTasks, {done: false});
     myTasks = selTasks;
     res.json(selTasks);
@@ -76,7 +74,7 @@ app.delete('/delete', function(req, res) {
 //    res.json(true);
 //});
 
-app.post('/selectedTask/:id', function(req, res) {
+app.put('/selectedTask/:id', function(req, res) {
     selTask = _.find(myTasks, function(itemTask){return itemTask.id == req.params.id});
     var taskIndex = myTasks.indexOf(selTask);
     myTasks[taskIndex].done = !myTasks[taskIndex].done;
@@ -99,7 +97,7 @@ app.delete('/delTask/:id', function(req, res){
 // myTasks[postIndex] = req.body;   no entiendo
 // res.json(true);   return que fue correcto?
 // _ que sentido tiene?
-app.post('/editPost', function(req, res) {
+app.put('/editPost', function(req, res) {
     selTask = _.find(myTasks, function(itemTask){return itemTask.id == req.params.id});
     var postIndex = myTasks.indexOf(selTask);
     myTasks[postIndex] = req.body;
