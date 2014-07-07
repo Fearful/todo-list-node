@@ -1,13 +1,11 @@
 'use strict';
 
-app.controller('myIndTasksCtrl', function($scope, todoService) {
-    //get all elements
-
+app.controller('myIndTasksCtrl', function($scope, todoService) {    
     $scope.textBtEdit = "Edit";
     $scope.state = true;
     var btEdit = true;
 
-
+    //get all elements
     $scope.getAll = function() {
         todoService.getAll()
             .success(function (data, status, headers, config) {
@@ -23,8 +21,6 @@ app.controller('myIndTasksCtrl', function($scope, todoService) {
         $scope.current;
         todoService.deleteTask(task.id)
             .success(function (id) {
-//               var selTask = _.find($scope.tareas, function(itemTask){return itemTask.id == id});
-//                var taskIndex = ;
                 $scope.tasks.splice($scope.tasks.indexOf(task), 1);
             })
             .error(function(current) {
@@ -43,12 +39,9 @@ app.controller('myIndTasksCtrl', function($scope, todoService) {
         }
     }
 
-
     var confirmEditTask = function(task){
         $scope.current;
-        debugger;
-        task.texto = $scope.newText;
-        debugger;
+        task.text = $scope.newText;
         todoService.editTask(task)
             .success(function () {
                 $scope.getAll();

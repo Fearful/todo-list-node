@@ -2,12 +2,11 @@
 
 app.controller('myTasksCtrl', function($scope, todoService, $location) {
 
-    var msgAlert = function(msg, visibilidad, state){
+    var msgAlert = function(msg, isVisible, state){
         $scope.msgAlert = msg;
-        $scope.msgVisible = visibilidad;
+        $scope.msgVisible = isVisible;
         $scope.styleAdded = state;
     }
-
 
     //get all elements
     $scope.getAll = function() {
@@ -36,10 +35,8 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
             $scope.countDelete += task.done ? 1 : 0;
         });
     };
-
-    // Call to blogService.create()
-    $scope.addTask = function() {
-        //debugger;
+    
+    $scope.addTask = function() {        
         if($scope.textNewTask == "" || $scope.textNewTask == undefined) {
             $scope.empty = true;
             msgAlert("You must enter a task", true, false);
@@ -52,7 +49,6 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
         todoService.create(task)
             .success(function (task,current, status, headers, config) {
                 $scope.tasks.push(task);
-//                $scope.getAll();
                 $scope.textNewTask = "";
                 msgAlert("Task added", true, true) ;
             })
@@ -62,17 +58,16 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
     };
 
     $scope.selection = function(task){
-
         msgAlert("", false, false);
         todoService.selection(task.id)
         .success(function (task) {
                 var selTask = _.find($scope.tasks, function(itemTask){return itemTask.id == task.id});
                 selTask.done = task.done;
                 numDone();
-            })
-                .error(function(current, status, headers, config) {
-                    alert(current);
-                });
+        })
+        .error(function(current, status, headers, config) {
+            alert(current);
+        });
     }
 
     $scope.delSelectedTasks = function(){

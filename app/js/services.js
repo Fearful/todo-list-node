@@ -1,16 +1,14 @@
 'use strict';
 
 /* Services */
-app.service('todoService', function ($http, $location) {
-        
-        var urlBase = "/api/myTasks";
-    
-        //return the array
-        this.getAll = function () {
-           return $http.get('/api/myTasks');
-        }
+app.service('todoService', function ($http, $location) {    
+    var urlBase = "/api/myTasks";
 
-    //add a new element to array
+    //return the array
+    this.getAll = function () {
+       return $http.get('/api/myTasks');
+    }
+    
     this.create = function (newTask) {
         return $http.post('/newTask', newTask);
     };
